@@ -79,18 +79,18 @@ foreach ($Build in $AllBuilds) {
     if ($Platform -eq "windows" -or $Platform -eq "uwp") {
         $Binaries += Join-Path $ArtifactsDir "msquic.dll"
         $Binaries += Join-Path $ArtifactsDir "msquic.pdb"
-    } else {
-        $Binaries += Join-Path $ArtifactsDir "libmsquic.so"
-        $LttngBin = Join-Path $ArtifactsDir "libmsquic.lttng.so"
-        if (Test-Path $LttngBin) {
-            $Binaries += $LttngBin
-        }
     }
 
     $Libraries = @()
 
     if ($Platform -eq "windows" -or $Platform -eq "uwp") {
         $Libraries += Join-Path $ArtifactsDir "msquic.lib"
+    } else {
+        $Libraries += Join-Path $ArtifactsDir "libmsquic.so"
+        $LttngBin = Join-Path $ArtifactsDir "libmsquic.lttng.so"
+        if (Test-Path $LttngBin) {
+            $Libraries += $LttngBin
+        }
     }
 
     # Copy items into temp folder that can be zipped in 1 command
